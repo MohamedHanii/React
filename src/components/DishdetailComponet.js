@@ -1,16 +1,16 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 
-
-function RenderDish({ selDish }) {
+function RenderDish({ dish }) {
     return (
         <Card>
-            <CardImg width="100%" top src={selDish.image} alt={selDish.name} />
+            <CardImg width="100%" top src={dish.image} alt={dish.name} />
             <CardBody>
-                <CardTitle>{selDish.name}</CardTitle>
-                <CardText>{selDish.description}</CardText>
+                <CardTitle>{dish.name}</CardTitle>
+                <CardText>{dish.description}</CardText>
             </CardBody>
         </Card>
     );
@@ -42,15 +42,25 @@ function RenderComment({ comments }) {
 
 const Dish = (props) => {
 
-    if (props.selDish) {
+    if (props.dish) {
         return (
             <div className="container">
                 <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem ><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                        <RenderDish selDish={props.selDish} />
+                        <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComment comments={props.selDish.comments} />
+                        <RenderComment comments={props.comments} />
                     </div>
                 </div>
             </div>
